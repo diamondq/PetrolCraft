@@ -1,0 +1,19 @@
+[
+{
+  "modid" : "PetrolCraft",
+  "name" : "PetrolCraft",
+  "version" : "0.0.1",
+  "url" : "https://github.com/diamondq/PetrolCraft",
+  "credits" : "",
+  "authors": [
+    "DiamondQ",
+    "Ev3rM0r3"
+  ],
+  "description": "Provides a more realistic oil / petroleum environment",
+  "logoFile" : "/PetrolCraft_Logo.png",
+  "updateUrl" : "",
+  "parent" : "",
+  "screenshots": [
+  ]
+}
+]
