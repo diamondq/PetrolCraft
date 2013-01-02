@@ -56,9 +56,10 @@ public class WorldGenerator {
 				int testZ = pCenterZ - (radius / 2) + z;
 				int height = pWorld.getHeightValue(testX, testZ) - 1;
 				int blockId = pWorld.getBlockId(testX, height, testZ);
-				if ((blockId == Block.grass.blockID) || (blockId == Block.dirt.blockID) || (blockId == Block.sand.blockID)) {
+				if ((blockId == Block.grass.blockID) || (blockId == Block.dirt.blockID))
 					pWorld.setBlock(testX, height, testZ, Blocks.sOilDirt.blockID);
-				}
+				else if (blockId == Block.sand.blockID)
+					pWorld.setBlock(testX, height, testZ, Blocks.sOilSand.blockID);
 			}
 	}
 

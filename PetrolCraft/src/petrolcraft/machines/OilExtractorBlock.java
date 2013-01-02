@@ -11,12 +11,17 @@ import petrolcraft.common.Textures;
 
 public class OilExtractorBlock extends Block {
 	public OilExtractorBlock(int pBlockID) {
-		super(pBlockID, 1, Material.ground);
+		super(pBlockID, Textures.sOIL_EXTRACTOR_TOP_ID, Material.ground);
 		setBlockName("OilExtractor");
 		setResistance(0F);
 		setHardness(0.5F);
 		setCreativeTab(CreativeTabs.tabTools);
 		setStepSound(soundMetalFootstep);
+	}
+
+	@Override
+	public int getBlockTextureFromSide(int pSide) {
+		return Textures.sOIL_EXTRACTOR_TOP_ID + pSide;
 	}
 
 	/**
@@ -38,7 +43,7 @@ public class OilExtractorBlock extends Block {
 		/* Check to see if the extractor will be sitting on an oil sands */
 
 		int belowID = pWorld.getBlockId(pX, pY - 1, pZ);
-		if (belowID == Blocks.sOilDirt.blockID)
+		if ((belowID == Blocks.sOilDirt.blockID) || (belowID == Blocks.sOilSand.blockID))
 			return true;
 		return false;
 	}
