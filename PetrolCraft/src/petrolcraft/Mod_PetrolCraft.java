@@ -1,18 +1,21 @@
 package petrolcraft;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-import java.io.File;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import net.minecraftforge.common.Configuration;
 import petrolcraft.blocks.Blocks;
+import petrolcraft.common.Textures;
 import petrolcraft.generation.OnChunkCreation;
+import petrolcraft.machines.Machines;
 
 @Mod(modid = "PetrolCraft", name = "PetrolCraft", version = "0.0.1")
 @NetworkMod(clientSideRequired = false, serverSideRequired = false)
@@ -26,6 +29,9 @@ public class Mod_PetrolCraft {
 
 	public static Configuration sConfig;
 
+	@SidedProxy(clientSide = "petrolcraft.client.ClientTextureProxy", serverSide = "petrolcraft.common.Textures")
+	public static Textures sTextures;
+
 	static {
 
 		/* See if the ForgeModLoader logger is present. If so, hook up to it */
@@ -35,11 +41,17 @@ public class Mod_PetrolCraft {
 			sLog.setParent(parent);
 	}
 
+	@PreInit
+	public void preInit(FMLPreInitializationEvent pEvent) {
+		setupConfiguration(pEvent);
+	}
+
 	@Init
 	public void load(cpw.mods.fml.common.event.FMLInitializationEvent pEvent) {
 		sLog.info("Initializing");
 
-		setupConfiguration();
+		sTextures.setupRender();
+
 		setupBlocks();
 		setupWorldGeneration();
 
@@ -47,20 +59,22 @@ public class Mod_PetrolCraft {
 		sLog.info("Initialized");
 	}
 
-	private void setupConfiguration() {
+	private void setupConfiguration(FMLPreInitializationEvent pEvent) {
 
 		/* Load the configuration */
 
-		sConfig = new Configuration(new File(Loader.instance().getConfigDir(), "mod_PetrolCraft.cfg"), true);
+		sConfig = new Configuration(pEvent.getSuggestedConfigurationFile());
 
 		/* Define any additional comments */
 
-		sConfig.addCustomCategoryComment("Blocks", "This section defines all information about the new blocks that are added to the game");
-		sConfig.addCustomCategoryComment("Generation", "This section defines how the world generation occurs");
+		sConfig.addCustomCategoryComment(Configuration.CATEGORY_BLOCK,
+				"This section defines all information about the new blocks that are added to the game");
+		sConfig.addCustomCategoryComment("generation", "This section defines how the world generation occurs");
 	}
 
 	private void setupBlocks() {
 		Blocks.init();
+		Machines.init();
 	}
 
 	/**

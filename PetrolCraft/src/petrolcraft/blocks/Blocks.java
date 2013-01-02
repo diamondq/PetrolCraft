@@ -1,9 +1,9 @@
 package petrolcraft.blocks;
 
-import petrolcraft.Mod_PetrolCraft;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.item.ItemBlock;
+import petrolcraft.Mod_PetrolCraft;
 
 public class Blocks {
 	public static OilDirt sOilDirt;
@@ -14,7 +14,7 @@ public class Blocks {
 
 		/* Oil infused Dirt */
 
-		sOilDirt = new OilDirt(Mod_PetrolCraft.sConfig.getBlock("Blocks", "Oil_Dirt_Block_ID", sDEFAULT_BLOCK_START_ID + 1,
+		sOilDirt = new OilDirt(Mod_PetrolCraft.sConfig.getBlock("Oil_Dirt_Block_ID", sDEFAULT_BLOCK_START_ID + 1,
 				"Oil infused Dirt Block ID").getInt());
 		GameRegistry.registerBlock(sOilDirt, ItemBlock.class, sOilDirt.getBlockName(), Mod_PetrolCraft.sMOD_ID);
 		LanguageRegistry.addName(sOilDirt, "Oil infused Dirt");
