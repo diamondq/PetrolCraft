@@ -21,11 +21,13 @@ public class OilExtractorTileEntity extends TileEntity implements IEnergySink {
 
 	@Override
 	public boolean acceptsEnergyFrom(TileEntity pEntity, Direction pDir) {
+		System.out.println(toString() + " acceptsEnergyFrom");
 		return true;
 	}
 
 	@Override
 	public boolean isAddedToEnergyNet() {
+		System.out.println(toString() + " isAddedToEnergyNet");
 		return true;
 	}
 
@@ -41,7 +43,7 @@ public class OilExtractorTileEntity extends TileEntity implements IEnergySink {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void invalidate() {
-		System.out.println("Invalidated");
+		System.out.println(toString() + " invalidate");
 		EnergyNet.getForWorld(getWorldObj()).removeTileEntity(this);
 		super.invalidate();
 	}
@@ -49,18 +51,20 @@ public class OilExtractorTileEntity extends TileEntity implements IEnergySink {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void validate() {
+		System.out.println(toString() + " validate");
 		super.validate();
 		EnergyNet.getForWorld(getWorldObj()).addTileEntity(this);
 	}
 
 	@Override
 	public int demandsEnergy() {
-		System.out.println(this.toString() + " " + String.valueOf(mStoredEnergy));
+		System.out.println(this.toString() + " demandsEnergy " + String.valueOf(mStoredEnergy));
 		return mMaxEnergy - mStoredEnergy;
 	}
 
 	@Override
 	public int getMaxSafeInput() {
+		System.out.println(toString() + " getMaxSafeInput");
 		return Integer.MAX_VALUE;
 	}
 

@@ -19,9 +19,29 @@ public class OilExtractorBlock extends Block {
 		setStepSound(soundMetalFootstep);
 	}
 
+	/**
+	 * 0 -bottom 1 - top 2 - left 3 - right 4 - front 5 - back
+	 * 
+	 * @see net.minecraft.block.Block#getBlockTextureFromSide(int)
+	 */
 	@Override
 	public int getBlockTextureFromSide(int pSide) {
-		return Textures.sOIL_EXTRACTOR_TOP_ID + pSide;
+		switch (pSide) {
+		case 0:
+			return Textures.sOIL_EXTRACTOR_BOTTOM_ID;
+		case 1:
+			return Textures.sOIL_EXTRACTOR_TOP_ID;
+		case 2:
+			return Textures.sOIL_EXTRACTOR_LEFT_ID;
+		case 3:
+			return Textures.sOIL_EXTRACTOR_RIGHT_ID;
+		case 4:
+			return Textures.sOIL_EXTRACTOR_FRONT_ID;
+		case 5:
+			return Textures.sOIL_EXTRACTOR_BACK_ID;
+		default:
+			return Textures.sOIL_EXTRACTOR_BOTTOM_ID;
+		}
 	}
 
 	/**
