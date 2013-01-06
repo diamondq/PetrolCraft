@@ -19,6 +19,19 @@ public class OilExtractorBlock extends Block {
 		setStepSound(soundMetalFootstep);
 	}
 
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+
+	private int view = 0;
+	private long lastFlip = System.currentTimeMillis();
+
 	/**
 	 * 0 -bottom 1 - top 2 - left 3 - right 4 - front 5 - back
 	 * 
@@ -26,21 +39,27 @@ public class OilExtractorBlock extends Block {
 	 */
 	@Override
 	public int getBlockTextureFromSide(int pSide) {
+		if (System.currentTimeMillis() - lastFlip > 1000) {
+			view += 16;
+			if (view > 32)
+				view = 0;
+			lastFlip = System.currentTimeMillis();
+		}
 		switch (pSide) {
 		case 0:
-			return Textures.sOIL_EXTRACTOR_BOTTOM_ID;
+			return Textures.sOIL_EXTRACTOR_BOTTOM_ID + view;
 		case 1:
-			return Textures.sOIL_EXTRACTOR_TOP_ID;
+			return Textures.sOIL_EXTRACTOR_TOP_ID + view;
 		case 2:
-			return Textures.sOIL_EXTRACTOR_LEFT_ID;
+			return Textures.sOIL_EXTRACTOR_LEFT_ID + view;
 		case 3:
-			return Textures.sOIL_EXTRACTOR_RIGHT_ID;
+			return Textures.sOIL_EXTRACTOR_RIGHT_ID + view;
 		case 4:
-			return Textures.sOIL_EXTRACTOR_FRONT_ID;
+			return Textures.sOIL_EXTRACTOR_FRONT_ID + view;
 		case 5:
-			return Textures.sOIL_EXTRACTOR_BACK_ID;
+			return Textures.sOIL_EXTRACTOR_BACK_ID + view;
 		default:
-			return Textures.sOIL_EXTRACTOR_BOTTOM_ID;
+			return Textures.sOIL_EXTRACTOR_BOTTOM_ID + view;
 		}
 	}
 
@@ -79,7 +98,7 @@ public class OilExtractorBlock extends Block {
 	 */
 	@Override
 	public TileEntity createTileEntity(World pWorld, int pMetadata) {
-		return new OilExtractorTileEntity(pWorld, pMetadata);
+		return Machines.createPoweredTileEntity(pWorld, pMetadata);
 	}
 
 	/**
